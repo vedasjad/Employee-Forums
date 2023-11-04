@@ -27,5 +27,25 @@ class AppThemes {
       elevation: MaterialStatePropertyAll(0),
       constraints: BoxConstraints(minHeight: 44, maxHeight: 44),
     ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      elevation: 0,
+      showUnselectedLabels: true,
+      selectedLabelStyle: TextStyle(
+        color: AppColors.white,
+        fontSize: 10,
+      ),
+      unselectedLabelStyle: TextStyle(
+        color: AppColors.white,
+        fontSize: 10,
+      ),
+      selectedIconTheme: IconThemeData(
+        size: 35,
+        color: AppColors.blue,
+      ),
+      unselectedIconTheme: IconThemeData(
+        size: 35,
+        color: AppColors.white,
+      ),
+    ),
   );
 }
