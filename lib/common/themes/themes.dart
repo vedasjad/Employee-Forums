@@ -7,6 +7,7 @@ class AppThemes {
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.white),
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: const AppBarTheme(
+      surfaceTintColor: AppColors.white,
       backgroundColor: AppColors.white,
       centerTitle: true,
       iconTheme: IconThemeData(
@@ -17,15 +18,20 @@ class AppThemes {
         color: AppColors.black,
       ),
     ),
-    searchBarTheme: const SearchBarThemeData(
-      backgroundColor: MaterialStatePropertyAll(AppColors.coldWhite),
-      textStyle: MaterialStatePropertyAll(
+    searchBarTheme: SearchBarThemeData(
+      backgroundColor: const MaterialStatePropertyAll(AppColors.coldWhite),
+      textStyle: const MaterialStatePropertyAll(
         TextStyle(
-          color: AppColors.greyTextColor,
+          color: AppColors.charcoalGrey,
         ),
       ),
-      elevation: MaterialStatePropertyAll(0),
-      constraints: BoxConstraints(minHeight: 44, maxHeight: 44),
+      elevation: const MaterialStatePropertyAll(0),
+      constraints: const BoxConstraints(minHeight: 44, maxHeight: 44),
+      shape: MaterialStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       elevation: 0,

@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final homeProvider = Provider.of<HomeProvider>(context);
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         leading: GestureDetector(
           child: const Icon(
