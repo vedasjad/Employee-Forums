@@ -7,7 +7,8 @@ import '../../../models/post.dart';
 
 class FeedProvider extends ChangeNotifier {
   final List<Post> _posts = [];
-  final Box likedPosts = Hive.box(HiveBoxes.likedPosts);
+  final Box _likedPosts = Hive.box(HiveBoxes.likedPosts);
+  final Box _savedPosts = Hive.box(HiveBoxes.savedPosts);
   int _currentPage = 0;
   final FeedServices _feedServices = FeedServices();
 
@@ -20,9 +21,16 @@ class FeedProvider extends ChangeNotifier {
   }
 
   void togglePostLike(Post post) {
-    likedPosts.containsKey(post.id)
-        ? likedPosts.delete(post.id)
-        : likedPosts.put(post.id, post);
+    _likedPosts.containsKey(post.id)
+        ? _likedPosts.delete(post.id)
+        : _likedPosts.put(post.id, post);
+    notifyListeners();
+  }
+
+  void togglePostSave(Post post) {
+    _savedPosts.containsKey(post.id)
+        ? _savedPosts.delete(post.id)
+        : _savedPosts.put(post.id, post);
     notifyListeners();
   }
 

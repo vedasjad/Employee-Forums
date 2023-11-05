@@ -77,7 +77,9 @@ class _PostWidgetState extends State<PostWidget> {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return const MoreOptionsWidget();
+                        return MoreOptionsWidget(
+                          post: post,
+                        );
                       },
                     );
                   },

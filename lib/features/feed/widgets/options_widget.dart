@@ -21,7 +21,6 @@ class OptionsWidget extends StatefulWidget {
 
 class _OptionsWidgetState extends State<OptionsWidget> {
   final Box likedPosts = Hive.box(HiveBoxes.likedPosts);
-
   @override
   Widget build(BuildContext context) {
     return Container(

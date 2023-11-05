@@ -1,17 +1,26 @@
+import 'package:employee_forums/features/feed/providers/feed_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 import '../../../common/colors/colors.dart';
+import '../../../common/hive/hive_boxes.dart';
+import '../../../models/post.dart';
 
 class MoreOptionsWidget extends StatefulWidget {
   const MoreOptionsWidget({
     super.key,
+    required this.post,
   });
+
+  final Post post;
 
   @override
   State<MoreOptionsWidget> createState() => _MoreOptionsWidgetState();
 }
 
 class _MoreOptionsWidgetState extends State<MoreOptionsWidget> {
+  final Box savedPosts = Hive.box(HiveBoxes.savedPosts);
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -35,24 +44,39 @@ class _MoreOptionsWidgetState extends State<MoreOptionsWidget> {
             children: [
               Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(5),
-                    margin: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        width: 2,
-                        color: AppColors.black,
+                  GestureDetector(
+                    onTap: () {
+                      context.read<FeedProvider>().togglePostSave(widget.post);
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      margin: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          width: 2,
+                          color: AppColors.black,
+                        ),
                       ),
-                    ),
-                    child: const Icon(
-                      Icons.bookmark_border,
-                      size: 35,
+                      child: savedPosts.containsKey(widget.post.id)
+                          ? const Icon(
+                              Icons.bookmark_added,
+                              size: 35,
+                            )
+                          : const Icon(
+                              Icons.bookmark_border,
+                              size: 35,
+                            ),
                     ),
                   ),
-                  const Text(
-                    "Save",
-                  ),
+                  savedPosts.containsKey(widget.post.id)
+                      ? const Text(
+                          "Saved",
+                        )
+                      : const Text(
+                          "Save",
+                        ),
                 ],
               ),
             ],
