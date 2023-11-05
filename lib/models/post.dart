@@ -1,30 +1,56 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:hive/hive.dart';
 
 import 'comment.dart';
+import 'event_location.dart';
 
+part 'post.g.dart';
+
+@HiveType(typeId: 0)
 class Post {
+  @HiveField(0)
   final EventLocation eventLocation;
+  @HiveField(1)
   final String id;
+  @HiveField(2)
   final String userId;
+  @HiveField(3)
   final String description;
+  @HiveField(4)
   final String title;
+  @HiveField(5)
   final List<String> image;
+  @HiveField(6)
   final List<String> tags;
+  @HiveField(7)
   final String eventCategory;
+  @HiveField(8)
   final String eventStartAt;
+  @HiveField(9)
   final String eventEndAt;
+  @HiveField(10)
   final String eventId;
+  @HiveField(11)
   final String eventDescription;
+  @HiveField(12)
   final int likes;
+  @HiveField(13)
   final int noOfComments;
+  @HiveField(14)
   final List<String> likedUsers;
+  @HiveField(15)
   final List<Comment> comments;
+  @HiveField(16)
   final String createdAt;
+  @HiveField(17)
   final int v;
+  @HiveField(18)
   final bool registrationRequired;
+  @HiveField(19)
   final List<dynamic> registration;
+  @HiveField(20)
   Post({
     required this.eventLocation,
     required this.id,
@@ -96,7 +122,7 @@ class Post {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'eventLocation': eventLocation.toMap()});
     result.addAll({'id': id});
     result.addAll({'userId': userId});
@@ -117,7 +143,7 @@ class Post {
     result.addAll({'v': v});
     result.addAll({'registrationRequired': registrationRequired});
     result.addAll({'registration': registration});
-  
+
     return result;
   }
 
@@ -138,7 +164,8 @@ class Post {
       likes: map['likes']?.toInt() ?? 0,
       noOfComments: map['noOfComments']?.toInt() ?? 0,
       likedUsers: List<String>.from(map['likedUsers']),
-      comments: List<Comment>.from(map['comments']?.map((x) => Comment.fromMap(x))),
+      comments:
+          List<Comment>.from(map['comments']?.map((x) => Comment.fromMap(x))),
       createdAt: map['createdAt'] ?? '',
       v: map['v']?.toInt() ?? 0,
       registrationRequired: map['registrationRequired'] ?? false,
@@ -206,60 +233,4 @@ class Post {
         registrationRequired.hashCode ^
         registration.hashCode;
   }
-}
-
-class EventLocation {
-  final String type;
-  final List<double> coordinates;
-  EventLocation({
-    required this.type,
-    required this.coordinates,
-  });
-
-  EventLocation copyWith({
-    String? type,
-    List<double>? coordinates,
-  }) {
-    return EventLocation(
-      type: type ?? this.type,
-      coordinates: coordinates ?? this.coordinates,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-
-    result.addAll({'type': type});
-    result.addAll({'coordinates': coordinates});
-
-    return result;
-  }
-
-  factory EventLocation.fromMap(Map<String, dynamic> map) {
-    return EventLocation(
-      type: map['type'] ?? '',
-      coordinates: List<double>.from(map['coordinates']),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory EventLocation.fromJson(String source) =>
-      EventLocation.fromMap(json.decode(source));
-
-  @override
-  String toString() => 'EventLocation(type: $type, coordinates: $coordinates)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
-
-    return other is EventLocation &&
-        other.type == type &&
-        listEquals(other.coordinates, coordinates);
-  }
-
-  @override
-  int get hashCode => type.hashCode ^ coordinates.hashCode;
 }

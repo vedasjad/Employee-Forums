@@ -1,15 +1,27 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:hive/hive.dart';
 
+part 'comment.g.dart';
+
+@HiveType(typeId: 2)
 class Comment {
-   final String user;
+  @HiveField(0)
+  final String user;
+  @HiveField(1)
   final bool isEdited;
+  @HiveField(2)
   final String text;
+  @HiveField(3)
   final List<dynamic> likes;
+  @HiveField(4)
   final String id;
+  @HiveField(5)
   final List<dynamic> image;
+  @HiveField(6)
   final String createdAt;
+  @HiveField(7)
   final List<dynamic> replies;
   Comment({
     required this.user,
@@ -46,7 +58,7 @@ class Comment {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'user': user});
     result.addAll({'isEdited': isEdited});
     result.addAll({'text': text});
@@ -55,7 +67,7 @@ class Comment {
     result.addAll({'image': image});
     result.addAll({'createdAt': createdAt});
     result.addAll({'replies': replies});
-  
+
     return result;
   }
 
@@ -74,7 +86,8 @@ class Comment {
 
   String toJson() => json.encode(toMap());
 
-  factory Comment.fromJson(String source) => Comment.fromMap(json.decode(source));
+  factory Comment.fromJson(String source) =>
+      Comment.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -85,27 +98,27 @@ class Comment {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-  
+
     return other is Comment &&
-      other.user == user &&
-      other.isEdited == isEdited &&
-      other.text == text &&
-      listEquals(other.likes, likes) &&
-      other.id == id &&
-      listEquals(other.image, image) &&
-      other.createdAt == createdAt &&
-      listEquals(other.replies, replies);
+        other.user == user &&
+        other.isEdited == isEdited &&
+        other.text == text &&
+        listEquals(other.likes, likes) &&
+        other.id == id &&
+        listEquals(other.image, image) &&
+        other.createdAt == createdAt &&
+        listEquals(other.replies, replies);
   }
 
   @override
   int get hashCode {
     return user.hashCode ^
-      isEdited.hashCode ^
-      text.hashCode ^
-      likes.hashCode ^
-      id.hashCode ^
-      image.hashCode ^
-      createdAt.hashCode ^
-      replies.hashCode;
+        isEdited.hashCode ^
+        text.hashCode ^
+        likes.hashCode ^
+        id.hashCode ^
+        image.hashCode ^
+        createdAt.hashCode ^
+        replies.hashCode;
   }
 }

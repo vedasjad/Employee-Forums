@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import '../../../common/colors/colors.dart';
 import '../../../models/post.dart';
 import '../providers/feed_provider.dart';
+import 'more_options_widget.dart';
+import 'options_widget.dart';
 
 class PostWidget extends StatefulWidget {
   const PostWidget({
@@ -70,9 +72,19 @@ class _PostWidgetState extends State<PostWidget> {
                     ),
                   ],
                 ),
-                const Icon(
-                  Icons.more_horiz_rounded,
-                  size: 20,
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return const MoreOptionsWidget();
+                      },
+                    );
+                  },
+                  child: const Icon(
+                    Icons.more_horiz_rounded,
+                    size: 20,
+                  ),
                 ),
               ],
             ),
@@ -97,72 +109,7 @@ class _PostWidgetState extends State<PostWidget> {
               maxLines: 2,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: AppColors.grey,
-                ),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.thumb_up_alt_outlined,
-                      color: AppColors.charcoalGrey,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text(
-                        "${post.likes} Likes",
-                        style: const TextStyle(
-                          color: AppColors.charcoalGrey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.comment_outlined,
-                      color: AppColors.charcoalGrey,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text(
-                        "${post.noOfComments} Comments",
-                        style: const TextStyle(
-                          color: AppColors.charcoalGrey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const Row(
-                  children: [
-                    Icon(
-                      Icons.share,
-                      color: AppColors.charcoalGrey,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Text(
-                        "Share",
-                        style: TextStyle(
-                          color: AppColors.charcoalGrey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          OptionsWidget(post: post),
         ],
       ),
     );
