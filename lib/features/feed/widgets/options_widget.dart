@@ -7,8 +7,8 @@ import '../../../common/hive/hive_boxes.dart';
 import '../../../models/post.dart';
 import '../providers/feed_provider.dart';
 
-class OptionsWidget extends StatefulWidget {
-  const OptionsWidget({
+class OptionsWidget extends StatelessWidget {
+  OptionsWidget({
     super.key,
     required this.post,
     required this.index,
@@ -17,12 +17,8 @@ class OptionsWidget extends StatefulWidget {
   final Post post;
   final int index;
 
-  @override
-  State<OptionsWidget> createState() => _OptionsWidgetState();
-}
-
-class _OptionsWidgetState extends State<OptionsWidget> {
   final Box likedPosts = Hive.box(HiveBoxes.likedPosts);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,12 +34,11 @@ class _OptionsWidgetState extends State<OptionsWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () => context
-                .read<FeedProvider>()
-                .togglePostLike(widget.index, widget.post),
+            onTap: () =>
+                context.read<FeedProvider>().togglePostLike(index, post),
             child: Row(
               children: [
-                likedPosts.containsKey(widget.index)
+                likedPosts.containsKey(index)
                     ? const Icon(
                         Icons.thumb_up_rounded,
                         color: AppColors.blue,
@@ -55,7 +50,7 @@ class _OptionsWidgetState extends State<OptionsWidget> {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Text(
-                    "${likedPosts.containsKey(widget.index) ? widget.post.likes + 1 : widget.post.likes} Likes",
+                    "${likedPosts.containsKey(index) ? post.likes + 1 : post.likes} Likes",
                     style: const TextStyle(
                       color: AppColors.charcoalGrey,
                     ),
@@ -73,7 +68,7 @@ class _OptionsWidgetState extends State<OptionsWidget> {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Text(
-                  "${widget.post.noOfComments} Comments",
+                  "${post.noOfComments} Comments",
                   style: const TextStyle(
                     color: AppColors.charcoalGrey,
                   ),

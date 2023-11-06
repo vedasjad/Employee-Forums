@@ -4,15 +4,11 @@ import 'package:hive/hive.dart';
 
 import '../../../common/hive/hive_boxes.dart';
 
-class SavedPostsScreen extends StatefulWidget {
-  const SavedPostsScreen({super.key});
+class SavedPostsScreen extends StatelessWidget {
+  SavedPostsScreen({super.key});
 
-  @override
-  State<SavedPostsScreen> createState() => _SavedPostsScreenState();
-}
-
-class _SavedPostsScreenState extends State<SavedPostsScreen> {
   final Box savedPosts = Hive.box(HiveBoxes.savedPosts);
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

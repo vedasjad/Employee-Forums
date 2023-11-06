@@ -4,15 +4,11 @@ import 'package:hive/hive.dart';
 
 import '../../../common/hive/hive_boxes.dart';
 
-class LikedPostsScreen extends StatefulWidget {
-  const LikedPostsScreen({super.key});
+class LikedPostsScreen extends StatelessWidget {
+  LikedPostsScreen({super.key});
 
-  @override
-  State<LikedPostsScreen> createState() => _LikedPostsScreenState();
-}
-
-class _LikedPostsScreenState extends State<LikedPostsScreen> {
   final Box likedPosts = Hive.box(HiveBoxes.likedPosts);
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

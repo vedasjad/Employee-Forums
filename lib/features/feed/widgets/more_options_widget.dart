@@ -7,8 +7,8 @@ import '../../../common/colors/colors.dart';
 import '../../../common/hive/hive_boxes.dart';
 import '../../../models/post.dart';
 
-class MoreOptionsWidget extends StatefulWidget {
-  const MoreOptionsWidget({
+class MoreOptionsWidget extends StatelessWidget {
+  MoreOptionsWidget({
     super.key,
     required this.post,
     required this.index,
@@ -17,12 +17,8 @@ class MoreOptionsWidget extends StatefulWidget {
   final Post post;
   final int index;
 
-  @override
-  State<MoreOptionsWidget> createState() => _MoreOptionsWidgetState();
-}
-
-class _MoreOptionsWidgetState extends State<MoreOptionsWidget> {
   final Box savedPosts = Hive.box(HiveBoxes.savedPosts);
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -48,9 +44,7 @@ class _MoreOptionsWidgetState extends State<MoreOptionsWidget> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context
-                          .read<FeedProvider>()
-                          .togglePostSave(widget.index, widget.post);
+                      context.read<FeedProvider>().togglePostSave(index, post);
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -63,7 +57,7 @@ class _MoreOptionsWidgetState extends State<MoreOptionsWidget> {
                           color: AppColors.black,
                         ),
                       ),
-                      child: savedPosts.containsKey(widget.index)
+                      child: savedPosts.containsKey(index)
                           ? const Icon(
                               Icons.bookmark_added,
                               size: 35,
@@ -74,7 +68,7 @@ class _MoreOptionsWidgetState extends State<MoreOptionsWidget> {
                             ),
                     ),
                   ),
-                  savedPosts.containsKey(widget.index)
+                  savedPosts.containsKey(index)
                       ? const Text(
                           "Saved",
                         )

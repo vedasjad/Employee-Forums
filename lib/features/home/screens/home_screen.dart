@@ -6,20 +6,16 @@ import 'package:employee_forums/features/savedPosts/screens/saved_posts_screen.d
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final List<Widget> screens = const [
-    FeedScreen(),
+  final List<Widget> screens = [
+    const FeedScreen(),
     LikedPostsScreen(),
-    CommunityScreen(),
+    const CommunityScreen(),
     SavedPostsScreen(),
   ];
+
   @override
   Widget build(BuildContext context) {
     final homeProvider = Provider.of<HomeProvider>(context);

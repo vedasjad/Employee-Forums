@@ -7,7 +7,7 @@ import '../providers/feed_provider.dart';
 import 'more_options_widget.dart';
 import 'options_widget.dart';
 
-class PostWidget extends StatefulWidget {
+class PostWidget extends StatelessWidget {
   const PostWidget({
     super.key,
     required this.index,
@@ -16,13 +16,8 @@ class PostWidget extends StatefulWidget {
   final int index;
 
   @override
-  State<PostWidget> createState() => _PostWidgetState();
-}
-
-class _PostWidgetState extends State<PostWidget> {
-  @override
   Widget build(BuildContext context) {
-    final Post post = context.watch<FeedProvider>().posts[widget.index];
+    final Post post = context.watch<FeedProvider>().posts[index];
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
@@ -78,7 +73,7 @@ class _PostWidgetState extends State<PostWidget> {
                       context: context,
                       builder: (context) {
                         return MoreOptionsWidget(
-                          index: widget.index,
+                          index: index,
                           post: post,
                         );
                       },
@@ -112,7 +107,7 @@ class _PostWidgetState extends State<PostWidget> {
               maxLines: 2,
             ),
           ),
-          OptionsWidget(index: widget.index, post: post),
+          OptionsWidget(index: index, post: post),
         ],
       ),
     );
