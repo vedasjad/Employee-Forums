@@ -41,11 +41,22 @@ class _SavedPostsScreenState extends State<SavedPostsScreen> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const SavedPostsScrollScreen(),
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) {
+                              const begin = Offset(1.0, 0.0);
+                              const end = Offset.zero;
+                              final curve = CurvedAnimation(
+                                  parent: animation, curve: Curves.ease);
+                              var tween = Tween(begin: begin, end: end);
+                              var offsetAnimation = tween.animate(curve);
+
+                              return SlideTransition(
+                                position: offsetAnimation,
+                                child: const SavedPostsScrollScreen(),
+                              );
+                            },
                           ),
                         );
                       },
