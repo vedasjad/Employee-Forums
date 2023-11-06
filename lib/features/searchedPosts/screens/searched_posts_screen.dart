@@ -78,6 +78,7 @@ class SearchedPostsScreen extends StatelessWidget {
                       margin: const EdgeInsets.all(8),
                       child: Image.network(
                         filteredPosts[index].image.first,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   );

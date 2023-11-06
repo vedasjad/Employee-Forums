@@ -1,3 +1,4 @@
+import 'package:employee_forums/common/colors/colors.dart';
 import 'package:employee_forums/features/community/screens/community_screen.dart';
 import 'package:employee_forums/features/feed/screens/feed_screen.dart';
 import 'package:employee_forums/features/home/providers/home_provider.dart';
@@ -55,28 +56,52 @@ class HomeScreen extends StatelessWidget {
               onTap: (index) => homeProvider
                   .updateSelectedBottomNavigationBarItemIndex(index),
               currentIndex: homeProvider.selectedBottomNavigationBarItemIndex,
-              items: const [
+              items: [
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home_filled,
+                  icon: Image.asset(
+                    "assets/icons/home.png",
+                    height: 30,
+                    width: 30,
+                    color:
+                        homeProvider.selectedBottomNavigationBarItemIndex == 0
+                            ? AppColors.blue
+                            : AppColors.white,
                   ),
                   label: "Feed",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.favorite_rounded,
+                  icon: Image.asset(
+                    "assets/icons/liked.png",
+                    height: 30,
+                    width: 30,
+                    color:
+                        homeProvider.selectedBottomNavigationBarItemIndex == 1
+                            ? AppColors.blue
+                            : AppColors.white,
                   ),
                   label: "Liked",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.people,
+                  icon: Image.asset(
+                    "assets/icons/community.png",
+                    height: 30,
+                    width: 30,
+                    color:
+                        homeProvider.selectedBottomNavigationBarItemIndex == 2
+                            ? AppColors.blue
+                            : AppColors.white,
                   ),
                   label: "Community",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.bookmark_border_rounded,
+                  icon: Image.asset(
+                    "assets/icons/bookmark.png",
+                    height: 30,
+                    width: 30,
+                    color:
+                        homeProvider.selectedBottomNavigationBarItemIndex == 3
+                            ? AppColors.blue
+                            : AppColors.white,
                   ),
                   label: "Saved",
                 ),

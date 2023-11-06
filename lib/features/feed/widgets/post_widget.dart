@@ -55,9 +55,9 @@ class PostWidget extends StatelessWidget {
                               fontSize: 12,
                             ),
                           ),
-                          const Text(
-                            "Location",
-                            style: TextStyle(
+                          Text(
+                            post.eventLocation.type,
+                            style: const TextStyle(
                               fontSize: 9,
                               color: AppColors.charcoalGrey,
                             ),

@@ -42,6 +42,7 @@ class OptionsWidget extends StatelessWidget {
                     ? const Icon(
                         Icons.thumb_up_rounded,
                         color: AppColors.blue,
+                        size: 20,
                       )
                     : const Icon(
                         Icons.thumb_up_alt_outlined,
@@ -61,9 +62,8 @@ class OptionsWidget extends StatelessWidget {
           ),
           Row(
             children: [
-              const Icon(
-                Icons.comment_outlined,
-                color: AppColors.charcoalGrey,
+              Image.asset(
+                "assets/icons/comment.png",
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),
@@ -76,13 +76,12 @@ class OptionsWidget extends StatelessWidget {
               ),
             ],
           ),
-          const Row(
+          Row(
             children: [
-              Icon(
-                Icons.share,
-                color: AppColors.charcoalGrey,
+              Image.asset(
+                "assets/icons/share.png",
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(5.0),
                 child: Text(
                   "Share",

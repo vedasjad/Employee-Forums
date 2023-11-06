@@ -2,6 +2,9 @@ import 'package:employee_forums/common/hive/hive_boxes.dart';
 import 'package:employee_forums/common/themes/themes.dart';
 import 'package:employee_forums/features/feed/providers/feed_provider.dart';
 import 'package:employee_forums/features/home/providers/home_provider.dart';
+import 'package:employee_forums/features/likedPosts/providers/liked_posts_provider.dart';
+import 'package:employee_forums/features/savedPosts/providers/saved_posts_provider.dart';
+import 'package:employee_forums/features/searchedPosts/providers/searched_posts_provider.dart';
 import 'package:employee_forums/models/event_location.dart';
 import 'package:employee_forums/models/post.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +33,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => FeedProvider()),
+        ChangeNotifierProvider(create: (context) => LikedPostsProvider()),
+        ChangeNotifierProvider(create: (context) => SavedPostsProvider()),
+        ChangeNotifierProvider(create: (context) => SearchedPostsProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

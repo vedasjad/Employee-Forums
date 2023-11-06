@@ -1,8 +1,10 @@
 import 'package:employee_forums/common/colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppThemes {
   static ThemeData light = ThemeData(
+    textTheme: GoogleFonts.ubuntuTextTheme(),
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.white),
     scaffoldBackgroundColor: AppColors.white,
