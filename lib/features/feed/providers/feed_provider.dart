@@ -7,6 +7,10 @@ import '../../../models/post.dart';
 
 class FeedProvider extends ChangeNotifier {
   final List<Post> _posts = [];
+  List<String> _categories = ["All"];
+  String _selectedCategory = "All";
+  final List<Post> _selectedCategoryPosts = [];
+
   final Box _likedPosts = Hive.box(HiveBoxes.likedPosts);
   final Box _savedPosts = Hive.box(HiveBoxes.savedPosts);
   int _currentPage = 0;
@@ -16,6 +20,10 @@ class FeedProvider extends ChangeNotifier {
     List<Post> newPosts =
         await _feedServices.getPostsPage(context, _currentPage);
     _posts.addAll(newPosts);
+    _categories.addAll(
+        List.generate(_posts.length, (index) => _posts[index].eventCategory));
+    _categories = _categories.toSet().toList();
+    updateCategory(_selectedCategory);
     notifyListeners();
     _currentPage++;
   }
@@ -25,6 +33,7 @@ class FeedProvider extends ChangeNotifier {
         ? _likedPosts.delete(index)
         : _likedPosts.put(index, post);
     notifyListeners();
+    debugPrint(post.eventCategory);
   }
 
   void togglePostSave(int index, Post post) {
@@ -34,5 +43,19 @@ class FeedProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateCategory(String category) {
+    _selectedCategory = category;
+    _selectedCategoryPosts.clear();
+    _selectedCategoryPosts.addAll(_selectedCategory == _categories.first
+        ? _posts
+        : _posts
+            .where((element) => element.eventCategory == _selectedCategory)
+            .toList());
+    notifyListeners();
+  }
+
   get posts => _posts;
+  get categories => _categories;
+  get selectedCategory => _selectedCategory;
+  get selectedCategoryPosts => _selectedCategoryPosts;
 }

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../common/colors/colors.dart';
 import '../../../common/utils/snack_bar.dart';
 import '../widgets/post_widget.dart';
+import '../widgets/select_category_widget.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({super.key});
@@ -39,6 +40,10 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Post> posts = context.watch<FeedProvider>().posts;
+    final List<Post> selectedCategoryPosts =
+        context.watch<FeedProvider>().selectedCategoryPosts;
+    final String selectedCategory =
+        context.watch<FeedProvider>().selectedCategory;
     final screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
       height: screenHeight,
@@ -83,9 +88,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                         ),
                               )
                               .toList();
-                      Set<Post> filteredPostsSet = filteredPosts.toSet();
-                      filteredPosts.clear();
-                      filteredPosts = filteredPostsSet.toList();
+                      filteredPosts = filteredPosts.toSet().toList();
                       Navigator.of(context).push(
                         PageRouteBuilder(
                           pageBuilder:
@@ -127,11 +130,31 @@ class _FeedScreenState extends State<FeedScreen> {
                   ),
                 ),
                 GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return const SelectCategoryWidget();
+                      },
+                    );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15),
-                    child: Image.asset(
-                      "assets/icons/filter.png",
-                      height: 35,
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          "assets/icons/filter.png",
+                          height: 35,
+                        ),
+                        Text(
+                          selectedCategory,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: AppColors.charcoalGrey,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -141,9 +164,10 @@ class _FeedScreenState extends State<FeedScreen> {
           Expanded(
             child: ListView.builder(
               controller: postsScrollController,
-              itemCount: posts.length,
+              itemCount: selectedCategoryPosts.length,
               itemBuilder: (context, index) {
-                return PostWidget(index: index);
+                int postIndex = posts.indexOf(selectedCategoryPosts[index]);
+                return PostWidget(index: postIndex);
               },
             ),
           ),
