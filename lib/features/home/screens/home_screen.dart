@@ -1,8 +1,8 @@
 import 'package:employee_forums/features/community/screens/community_screen.dart';
 import 'package:employee_forums/features/feed/screens/feed_screen.dart';
 import 'package:employee_forums/features/home/providers/home_provider.dart';
-import 'package:employee_forums/features/liked/screens/liked_screen.dart';
-import 'package:employee_forums/features/saved/screens/saved_screen.dart';
+import 'package:employee_forums/features/likedPosts/screens/liked_posts_screen.dart';
+import 'package:employee_forums/features/savedPosts/screens/saved_posts_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,9 +16,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> screens = const [
     FeedScreen(),
-    LikedScreen(),
+    LikedPostsScreen(),
     CommunityScreen(),
-    SavedScreen(),
+    SavedPostsScreen(),
   ];
   @override
   Widget build(BuildContext context) {

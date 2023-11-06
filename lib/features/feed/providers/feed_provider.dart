@@ -20,17 +20,17 @@ class FeedProvider extends ChangeNotifier {
     _currentPage++;
   }
 
-  void togglePostLike(Post post) {
-    _likedPosts.containsKey(post.id)
-        ? _likedPosts.delete(post.id)
-        : _likedPosts.put(post.id, post);
+  void togglePostLike(int index, Post post) {
+    _likedPosts.containsKey(index)
+        ? _likedPosts.delete(index)
+        : _likedPosts.put(index, post);
     notifyListeners();
   }
 
-  void togglePostSave(Post post) {
-    _savedPosts.containsKey(post.id)
-        ? _savedPosts.delete(post.id)
-        : _savedPosts.put(post.id, post);
+  void togglePostSave(int index, Post post) {
+    _savedPosts.containsKey(index)
+        ? _savedPosts.delete(index)
+        : _savedPosts.put(index, post);
     notifyListeners();
   }
 

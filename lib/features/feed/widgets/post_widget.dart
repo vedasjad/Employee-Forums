@@ -78,6 +78,7 @@ class _PostWidgetState extends State<PostWidget> {
                       context: context,
                       builder: (context) {
                         return MoreOptionsWidget(
+                          index: widget.index,
                           post: post,
                         );
                       },
@@ -111,7 +112,7 @@ class _PostWidgetState extends State<PostWidget> {
               maxLines: 2,
             ),
           ),
-          OptionsWidget(post: post),
+          OptionsWidget(index: widget.index, post: post),
         ],
       ),
     );

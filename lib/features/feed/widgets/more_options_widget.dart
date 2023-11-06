@@ -11,9 +11,11 @@ class MoreOptionsWidget extends StatefulWidget {
   const MoreOptionsWidget({
     super.key,
     required this.post,
+    required this.index,
   });
 
   final Post post;
+  final int index;
 
   @override
   State<MoreOptionsWidget> createState() => _MoreOptionsWidgetState();
@@ -46,7 +48,9 @@ class _MoreOptionsWidgetState extends State<MoreOptionsWidget> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context.read<FeedProvider>().togglePostSave(widget.post);
+                      context
+                          .read<FeedProvider>()
+                          .togglePostSave(widget.index, widget.post);
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -59,7 +63,7 @@ class _MoreOptionsWidgetState extends State<MoreOptionsWidget> {
                           color: AppColors.black,
                         ),
                       ),
-                      child: savedPosts.containsKey(widget.post.id)
+                      child: savedPosts.containsKey(widget.index)
                           ? const Icon(
                               Icons.bookmark_added,
                               size: 35,
@@ -70,7 +74,7 @@ class _MoreOptionsWidgetState extends State<MoreOptionsWidget> {
                             ),
                     ),
                   ),
-                  savedPosts.containsKey(widget.post.id)
+                  savedPosts.containsKey(widget.index)
                       ? const Text(
                           "Saved",
                         )

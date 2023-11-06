@@ -11,9 +11,11 @@ class OptionsWidget extends StatefulWidget {
   const OptionsWidget({
     super.key,
     required this.post,
+    required this.index,
   });
 
   final Post post;
+  final int index;
 
   @override
   State<OptionsWidget> createState() => _OptionsWidgetState();
@@ -36,11 +38,12 @@ class _OptionsWidgetState extends State<OptionsWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () =>
-                context.read<FeedProvider>().togglePostLike(widget.post),
+            onTap: () => context
+                .read<FeedProvider>()
+                .togglePostLike(widget.index, widget.post),
             child: Row(
               children: [
-                likedPosts.containsKey(widget.post.id)
+                likedPosts.containsKey(widget.index)
                     ? const Icon(
                         Icons.thumb_up_rounded,
                         color: AppColors.blue,
@@ -52,7 +55,7 @@ class _OptionsWidgetState extends State<OptionsWidget> {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Text(
-                    "${likedPosts.containsKey(widget.post.id) ? widget.post.likes + 1 : widget.post.likes} Likes",
+                    "${likedPosts.containsKey(widget.index) ? widget.post.likes + 1 : widget.post.likes} Likes",
                     style: const TextStyle(
                       color: AppColors.charcoalGrey,
                     ),
