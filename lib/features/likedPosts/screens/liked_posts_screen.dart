@@ -83,7 +83,7 @@ class LikedPostsScreen extends StatelessWidget {
                             margin: const EdgeInsets.all(2),
                             child: Image.network(
                               likedPosts.getAt(index).image.first,
-                              fit: BoxFit.fill,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         );

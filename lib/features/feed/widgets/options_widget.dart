@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
@@ -47,6 +48,7 @@ class OptionsWidget extends StatelessWidget {
                     : const Icon(
                         Icons.thumb_up_alt_outlined,
                         color: AppColors.charcoalGrey,
+                        size: 20,
                       ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -62,8 +64,8 @@ class OptionsWidget extends StatelessWidget {
           ),
           Row(
             children: [
-              Image.asset(
-                "assets/icons/comment.png",
+              SvgPicture.asset(
+                "assets/icons/comment.svg",
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),
@@ -78,8 +80,8 @@ class OptionsWidget extends StatelessWidget {
           ),
           Row(
             children: [
-              Image.asset(
-                "assets/icons/share.png",
+              SvgPicture.asset(
+                "assets/icons/share.svg",
               ),
               const Padding(
                 padding: EdgeInsets.all(5.0),

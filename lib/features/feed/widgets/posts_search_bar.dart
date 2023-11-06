@@ -39,8 +39,12 @@ class PostsSearchBar extends StatelessWidget {
                           ),
                 )
                 .toList();
-        Set<Post> filteredPostsSet = filteredPosts.toSet();
-        filteredPosts = filteredPostsSet.toList();
+        List<Post> uniqueFilteredPosts = [];
+        for (Post post in filteredPosts) {
+          if (!uniqueFilteredPosts.contains(post)) {
+            uniqueFilteredPosts.add(post);
+          }
+        }
         Navigator.of(context).push(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) {
@@ -53,7 +57,7 @@ class PostsSearchBar extends StatelessWidget {
               return SlideTransition(
                 position: offsetAnimation,
                 child: SearchedPostsScreen(
-                  filteredPosts: filteredPosts,
+                  filteredPosts: uniqueFilteredPosts,
                   searchText: searchText,
                 ),
               );

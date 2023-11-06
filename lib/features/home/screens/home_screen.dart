@@ -5,6 +5,7 @@ import 'package:employee_forums/features/home/providers/home_provider.dart';
 import 'package:employee_forums/features/likedPosts/screens/liked_posts_screen.dart';
 import 'package:employee_forums/features/savedPosts/screens/saved_posts_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -58,10 +59,10 @@ class HomeScreen extends StatelessWidget {
               currentIndex: homeProvider.selectedBottomNavigationBarItemIndex,
               items: [
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/icons/home.png",
-                    height: 30,
-                    width: 30,
+                  icon: SvgPicture.asset(
+                    "assets/icons/home.svg",
+                    height: 25,
+                    width: 25,
                     color:
                         homeProvider.selectedBottomNavigationBarItemIndex == 0
                             ? AppColors.blue
@@ -70,10 +71,10 @@ class HomeScreen extends StatelessWidget {
                   label: "Feed",
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/icons/liked.png",
-                    height: 30,
-                    width: 30,
+                  icon: SvgPicture.asset(
+                    "assets/icons/liked.svg",
+                    height: 25,
+                    width: 25,
                     color:
                         homeProvider.selectedBottomNavigationBarItemIndex == 1
                             ? AppColors.blue
@@ -82,10 +83,10 @@ class HomeScreen extends StatelessWidget {
                   label: "Liked",
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/icons/community.png",
-                    height: 30,
-                    width: 30,
+                  icon: SvgPicture.asset(
+                    "assets/icons/community.svg",
+                    height: 25,
+                    width: 25,
                     color:
                         homeProvider.selectedBottomNavigationBarItemIndex == 2
                             ? AppColors.blue
@@ -94,10 +95,10 @@ class HomeScreen extends StatelessWidget {
                   label: "Community",
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/icons/bookmark.png",
-                    height: 30,
-                    width: 30,
+                  icon: SvgPicture.asset(
+                    "assets/icons/bookmark.svg",
+                    height: 25,
+                    width: 25,
                     color:
                         homeProvider.selectedBottomNavigationBarItemIndex == 3
                             ? AppColors.blue

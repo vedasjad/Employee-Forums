@@ -83,7 +83,7 @@ class SavedPostsScreen extends StatelessWidget {
                             margin: const EdgeInsets.all(2),
                             child: Image.network(
                               savedPosts.getAt(index).image.first,
-                              fit: BoxFit.fill,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         );

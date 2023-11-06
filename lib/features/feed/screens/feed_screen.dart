@@ -1,6 +1,7 @@
 import 'package:employee_forums/features/feed/providers/feed_provider.dart';
 import 'package:employee_forums/models/post.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/colors/colors.dart';
@@ -69,8 +70,8 @@ class _FeedScreenState extends State<FeedScreen> {
                         padding: const EdgeInsets.only(left: 15),
                         child: Column(
                           children: [
-                            Image.asset(
-                              "assets/icons/filter.png",
+                            SvgPicture.asset(
+                              "assets/icons/filter.svg",
                               height: 35,
                             ),
                             Text(
@@ -97,8 +98,8 @@ class _FeedScreenState extends State<FeedScreen> {
                           padding: const EdgeInsets.only(left: 15),
                           child: Column(
                             children: [
-                              Image.asset(
-                                "assets/icons/filter.png",
+                              SvgPicture.asset(
+                                "assets/icons/filter.svg",
                                 height: 35,
                               ),
                               Text(
