@@ -7,14 +7,14 @@ import 'package:provider/provider.dart';
 import '../../../common/hive/hive_boxes.dart';
 import '../../feed/widgets/post_widget.dart';
 
-class LikedPostScrollScreen extends StatefulWidget {
-  const LikedPostScrollScreen({super.key});
+class SavedPostsScrollScreen extends StatefulWidget {
+  const SavedPostsScrollScreen({super.key});
 
   @override
-  State<LikedPostScrollScreen> createState() => _LikedPostScrollScreenState();
+  State<SavedPostsScrollScreen> createState() => _SavedPostsScrollScreenState();
 }
 
-class _LikedPostScrollScreenState extends State<LikedPostScrollScreen> {
+class _SavedPostsScrollScreenState extends State<SavedPostsScrollScreen> {
   final ScrollController postsScrollController = ScrollController();
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _LikedPostScrollScreenState extends State<LikedPostScrollScreen> {
     super.dispose();
   }
 
-  final Box likedPosts = Hive.box(HiveBoxes.likedPosts);
+  final Box savedPosts = Hive.box(HiveBoxes.savedPosts);
   @override
   Widget build(BuildContext context) {
     final List<Post> posts = context.watch<FeedProvider>().posts;
@@ -36,17 +36,17 @@ class _LikedPostScrollScreenState extends State<LikedPostScrollScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Liked Posts"),
+        title: const Text("Saved Posts"),
       ),
       body: SizedBox(
         height: screenHeight,
         width: screenWidth,
         child: ListView.builder(
           controller: postsScrollController,
-          itemCount: likedPosts.length,
+          itemCount: savedPosts.length,
           itemBuilder: (context, index) {
             Post post = posts.firstWhere(
-              (element) => element == likedPosts.getAt(index),
+              (element) => element == savedPosts.getAt(index),
             );
             return PostWidget(index: posts.indexOf(post));
           },

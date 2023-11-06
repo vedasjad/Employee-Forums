@@ -1,4 +1,4 @@
-import 'package:employee_forums/features/likedPosts/screens/liked_post_scroll_screen.dart';
+import 'package:employee_forums/features/likedPosts/screens/liked_posts_scroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -44,7 +44,8 @@ class _LikedPostsScreenState extends State<LikedPostsScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LikedPostScrollScreen(),
+                            builder: (context) =>
+                                const LikedPostsScrollScreen(),
                           ),
                         );
                       },
