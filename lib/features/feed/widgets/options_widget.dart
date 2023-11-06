@@ -12,11 +12,9 @@ class OptionsWidget extends StatelessWidget {
   OptionsWidget({
     super.key,
     required this.post,
-    required this.index,
   });
 
   final Post post;
-  final int index;
 
   final Box likedPosts = Hive.box(HiveBoxes.likedPosts);
 
@@ -36,10 +34,10 @@ class OptionsWidget extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () =>
-                context.read<FeedProvider>().togglePostLike(index, post),
+                context.read<FeedProvider>().togglePostLike(post, context),
             child: Row(
               children: [
-                likedPosts.containsKey(index)
+                likedPosts.containsKey(post.userId + post.createdAt)
                     ? const Icon(
                         Icons.thumb_up_rounded,
                         color: AppColors.blue,
@@ -53,7 +51,7 @@ class OptionsWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Text(
-                    "${likedPosts.containsKey(index) ? post.likes + 1 : post.likes} Likes",
+                    "${likedPosts.containsKey(post.userId + post.createdAt) ? post.likes + 1 : post.likes} Likes",
                     style: const TextStyle(
                       color: AppColors.charcoalGrey,
                     ),

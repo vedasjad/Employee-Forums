@@ -11,11 +11,9 @@ class MoreOptionsWidget extends StatelessWidget {
   MoreOptionsWidget({
     super.key,
     required this.post,
-    required this.index,
   });
 
   final Post post;
-  final int index;
 
   final Box savedPosts = Hive.box(HiveBoxes.savedPosts);
 
@@ -44,7 +42,9 @@ class MoreOptionsWidget extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context.read<FeedProvider>().togglePostSave(index, post);
+                      context
+                          .read<FeedProvider>()
+                          .togglePostSave(post, context);
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -57,18 +57,19 @@ class MoreOptionsWidget extends StatelessWidget {
                           color: AppColors.black,
                         ),
                       ),
-                      child: savedPosts.containsKey(index)
-                          ? const Icon(
-                              Icons.bookmark_added,
-                              size: 35,
-                            )
-                          : const Icon(
-                              Icons.bookmark_border,
-                              size: 35,
-                            ),
+                      child:
+                          savedPosts.containsKey(post.userId + post.createdAt)
+                              ? const Icon(
+                                  Icons.bookmark_added,
+                                  size: 35,
+                                )
+                              : const Icon(
+                                  Icons.bookmark_border,
+                                  size: 35,
+                                ),
                     ),
                   ),
-                  savedPosts.containsKey(index)
+                  savedPosts.containsKey(post.userId + post.createdAt)
                       ? const Text(
                           "Saved",
                         )

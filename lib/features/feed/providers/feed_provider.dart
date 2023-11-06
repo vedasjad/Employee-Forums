@@ -2,8 +2,11 @@ import 'package:employee_forums/common/hive/hive_boxes.dart';
 import 'package:employee_forums/features/feed/services/feed_services.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 import '../../../models/post.dart';
+import '../../likedPosts/providers/liked_posts_provider.dart';
+import '../../savedPosts/providers/saved_posts_provider.dart';
 
 class FeedProvider extends ChangeNotifier {
   final List<Post> _posts = [];
@@ -25,21 +28,22 @@ class FeedProvider extends ChangeNotifier {
     _categories = _categories.toSet().toList();
     updateCategory(_selectedCategory);
     notifyListeners();
-    _currentPage++;
+    if (newPosts.isNotEmpty) _currentPage++;
   }
 
-  void togglePostLike(int index, Post post) {
-    _likedPosts.containsKey(index)
-        ? _likedPosts.delete(index)
-        : _likedPosts.put(index, post);
+  void togglePostLike(Post post, BuildContext context) {
+    _likedPosts.containsKey(post.userId + post.createdAt)
+        ? _likedPosts.delete(post.userId + post.createdAt)
+        : _likedPosts.put(post.userId + post.createdAt, post);
+    context.read<LikedPostsProvider>().getLikedPosts();
     notifyListeners();
-    debugPrint(post.eventCategory);
   }
 
-  void togglePostSave(int index, Post post) {
-    _savedPosts.containsKey(index)
-        ? _savedPosts.delete(index)
-        : _savedPosts.put(index, post);
+  void togglePostSave(Post post, BuildContext context) {
+    _savedPosts.containsKey(post.userId + post.createdAt)
+        ? _savedPosts.delete(post.userId + post.createdAt)
+        : _savedPosts.put(post.userId + post.createdAt, post);
+    context.read<SavedPostsProvider>().getSavedPosts();
     notifyListeners();
   }
 

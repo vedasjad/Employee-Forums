@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SavedPostsProvider extends ChangeNotifier {
+class SearchedPostsProvider extends ChangeNotifier {
   bool _isScrollView = false;
 
   void toggleScrollView() {

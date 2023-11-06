@@ -79,6 +79,21 @@ class SearchedPostsScreen extends StatelessWidget {
                       child: Image.network(
                         filteredPosts[index].image.first,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, child, loadingProgress) {
+                          return Container(
+                            height: screenWidth / 1.7,
+                            width: screenWidth / 1.7,
+                            color: AppColors.grey,
+                            child: const Center(
+                              child: Text(
+                                'Image Not Found',
+                                style: TextStyle(
+                                  color: AppColors.black,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   );

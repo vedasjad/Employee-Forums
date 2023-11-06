@@ -34,7 +34,8 @@ class FeedServices {
       );
     } catch (e) {
       debugPrint(e.toString());
-      showSnackBar(context, e.toString());
+      showSnackBar(context,
+          "Turn on your data connection.\nUntil then you can look into your Liked and Saved Posts.");
     }
     return newPost;
   }

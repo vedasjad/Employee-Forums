@@ -5,6 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/colors/colors.dart';
+import '../../likedPosts/providers/liked_posts_provider.dart';
+import '../../savedPosts/providers/saved_posts_provider.dart';
 import '../widgets/post_widget.dart';
 import '../widgets/posts_search_bar.dart';
 import '../widgets/select_category_widget.dart';
@@ -20,6 +22,8 @@ class _FeedScreenState extends State<FeedScreen> {
   final ScrollController postsScrollController = ScrollController();
   @override
   void initState() {
+    context.read<LikedPostsProvider>().getLikedPosts();
+    context.read<SavedPostsProvider>().getSavedPosts();
     context.read<FeedProvider>().getPostsPage(context);
     postsScrollController.addListener(() {
       if (postsScrollController.position.maxScrollExtent <=
@@ -38,7 +42,6 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Post> posts = context.watch<FeedProvider>().posts;
     final List<Post> selectedCategoryPosts =
         context.watch<FeedProvider>().selectedCategoryPosts;
     final String selectedCategory =
@@ -220,9 +223,7 @@ class _FeedScreenState extends State<FeedScreen> {
                     controller: postsScrollController,
                     itemCount: selectedCategoryPosts.length,
                     itemBuilder: (context, index) {
-                      int postIndex =
-                          posts.indexOf(selectedCategoryPosts[index]);
-                      return PostWidget(index: postIndex);
+                      return PostWidget(post: selectedCategoryPosts[index]);
                     },
                   ),
                 ),

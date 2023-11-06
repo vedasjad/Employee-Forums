@@ -1,22 +1,17 @@
 import 'package:employee_forums/common/colors/colors.dart';
-import 'package:employee_forums/features/feed/providers/feed_provider.dart';
-import 'package:employee_forums/features/savedPosts/providers/saved_posts_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/hive/hive_boxes.dart';
 import '../../../models/post.dart';
 import '../../feed/widgets/post_widget.dart';
+import '../providers/liked_posts_provider.dart';
 
 class LikedPostsScreen extends StatelessWidget {
-  LikedPostsScreen({super.key});
-
-  final Box likedPosts = Hive.box(HiveBoxes.likedPosts);
-
+  const LikedPostsScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final List<Post> posts = context.watch<FeedProvider>().posts;
+    final List<Post> likedPosts =
+        context.watch<LikedPostsProvider>().likedPosts;
     bool isScrollView = context.watch<LikedPostsProvider>().isScrollView;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
@@ -53,10 +48,9 @@ class LikedPostsScreen extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: likedPosts.length,
                       itemBuilder: (context, index) {
-                        Post post = posts.firstWhere(
-                          (element) => element == likedPosts.getAt(index),
+                        return PostWidget(
+                          post: likedPosts[index],
                         );
-                        return PostWidget(index: posts.indexOf(post));
                       },
                     ),
                   )
@@ -82,8 +76,23 @@ class LikedPostsScreen extends StatelessWidget {
                             ),
                             margin: const EdgeInsets.all(2),
                             child: Image.network(
-                              likedPosts.getAt(index).image.first,
+                              likedPosts[index].image.first,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, child, loadingProgress) {
+                                return Container(
+                                  height: screenWidth / 2.5,
+                                  width: screenWidth / 2.5,
+                                  color: AppColors.grey,
+                                  child: const Center(
+                                    child: Text(
+                                      'Image Not Found',
+                                      style: TextStyle(
+                                        color: AppColors.black,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         );

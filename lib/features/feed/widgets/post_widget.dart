@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../common/colors/colors.dart';
 import '../../../models/post.dart';
-import '../providers/feed_provider.dart';
 import 'more_options_widget.dart';
 import 'options_widget.dart';
 
 class PostWidget extends StatelessWidget {
-  const PostWidget({
-    super.key,
-    required this.index,
-  });
+  const PostWidget({super.key, required this.post});
 
-  final int index;
+  final Post post;
 
   @override
   Widget build(BuildContext context) {
-    final Post post = context.watch<FeedProvider>().posts[index];
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
@@ -73,7 +67,6 @@ class PostWidget extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return MoreOptionsWidget(
-                          index: index,
                           post: post,
                         );
                       },
@@ -98,6 +91,21 @@ class PostWidget extends StatelessWidget {
                 color: AppColors.grey,
               );
             },
+            errorBuilder: (context, child, loadingProgress) {
+              return Container(
+                height: screenWidth,
+                width: screenWidth,
+                color: AppColors.grey,
+                child: const Center(
+                  child: Text(
+                    'Image Not Found',
+                    style: TextStyle(
+                      color: AppColors.black,
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -107,7 +115,7 @@ class PostWidget extends StatelessWidget {
               maxLines: 2,
             ),
           ),
-          OptionsWidget(index: index, post: post),
+          OptionsWidget(post: post),
         ],
       ),
     );

@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/colors/colors.dart';
-import '../../../common/hive/hive_boxes.dart';
 import '../../../models/post.dart';
-import '../../feed/providers/feed_provider.dart';
 import '../../feed/widgets/post_widget.dart';
-import '../../searchedPosts/providers/searched_posts_provider.dart';
+import '../providers/saved_posts_provider.dart';
 
 class SavedPostsScreen extends StatelessWidget {
-  SavedPostsScreen({super.key});
-
-  final Box savedPosts = Hive.box(HiveBoxes.savedPosts);
+  const SavedPostsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<Post> posts = context.watch<FeedProvider>().posts;
+    final List<Post> savedPosts =
+        context.watch<SavedPostsProvider>().savedPosts;
     bool isScrollView = context.watch<SavedPostsProvider>().isScrollView;
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
@@ -53,10 +49,7 @@ class SavedPostsScreen extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: savedPosts.length,
                       itemBuilder: (context, index) {
-                        Post post = posts.firstWhere(
-                          (element) => element == savedPosts.getAt(index),
-                        );
-                        return PostWidget(index: posts.indexOf(post));
+                        return PostWidget(post: savedPosts[index]);
                       },
                     ),
                   )
@@ -82,8 +75,23 @@ class SavedPostsScreen extends StatelessWidget {
                             ),
                             margin: const EdgeInsets.all(2),
                             child: Image.network(
-                              savedPosts.getAt(index).image.first,
+                              savedPosts[index].image.first,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, child, loadingProgress) {
+                                return Container(
+                                  height: screenWidth / 2.5,
+                                  width: screenWidth / 2.5,
+                                  color: AppColors.grey,
+                                  child: const Center(
+                                    child: Text(
+                                      'Image Not Found',
+                                      style: TextStyle(
+                                        color: AppColors.black,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         );

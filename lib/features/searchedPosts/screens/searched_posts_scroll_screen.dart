@@ -51,8 +51,9 @@ class _SearchedPostsScrollScreenState extends State<SearchedPostsScrollScreen> {
           height: 70,
           padding: const EdgeInsets.fromLTRB(0, 15, 10, 15),
           child: SearchedPostsSearchBar(
-              searchTextController: searchTextController,
-              searchText: widget.searchText),
+            searchTextController: searchTextController,
+            searchText: widget.searchText,
+          ),
         ),
       ),
       body: SizedBox(
@@ -65,7 +66,9 @@ class _SearchedPostsScrollScreenState extends State<SearchedPostsScrollScreen> {
             Post post = posts.firstWhere(
               (element) => element == widget.filteredPosts[index],
             );
-            return PostWidget(index: posts.indexOf(post));
+            return PostWidget(
+              post: post,
+            );
           },
         ),
       ),
